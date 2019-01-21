@@ -46,12 +46,11 @@ a {
   padding-left: 15px;
   padding-right: 15px;
   cursor:pointer;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .search{
   display: flex;
   flex-direction: row;
-  vertical-align: center;
 }
 
 .mainBody{
@@ -92,10 +91,15 @@ a {
   margin:2px;
 }
 
-.deleteIcon{
-  width: 20px;
+#deleteIcon{
+  width: 26px;
+  border: none;
+  color: #FFF;
+  background-color: transparent;
+  background-image: url("../images/deleteIcon.png");
+  background-size: cover;
 }
 
-.deleteIcon{
-  width: 20px;
+#deleteIcon:hover{
+  cursor:pointer;
 }
