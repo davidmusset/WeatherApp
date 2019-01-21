@@ -1,0 +1,101 @@
+body {
+  padding: 50px;
+  font-weight:500;
+}
+
+h1{
+  color:#fdc215;
+  font-size: 60px;
+  text-shadow: 2px 2px 1px grey;
+  font-family: Ubuntu;
+  margin-bottom: 80px;
+
+}
+a {
+  color: #fdc215;
+}
+
+.textRegular{
+  color: black;
+  font-size: 14px;
+  font-family: Arial;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.text{
+  display: flex;
+  align-items: center;
+  margin-right: 2px;
+}
+
+.inputVille{
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  padding: 3px;
+}
+
+.btnSubmit{
+  color: #FFF;
+  background-color: #fdc215;
+  border-radius: 3px;
+  border:none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor:pointer;
+  margin-left: 20px;
+}
+.search{
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+}
+
+.mainBody{
+  margin-top: 10px;
+}
+
+.imageLeft{
+  width: 100%;
+}
+
+.list-group-item:hover{
+  background-color: #F1F1F1;
+}
+
+.tempMatin{
+  display: inline;
+  background-color: #fdc215;
+  color: #FFF;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+  font-size: 12px;
+  margin:2px;
+}
+
+.tempSoir{
+  display: inline;
+  background-color: #777777;
+  color: #FFF;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+  font-size: 12px;
+  margin:2px;
+}
+
+.deleteIcon{
+  width: 20px;
+}
+
+.deleteIcon{
+  width: 20px;
+}
