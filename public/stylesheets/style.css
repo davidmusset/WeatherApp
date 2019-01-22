@@ -50,7 +50,7 @@ a {
 }
 .search{
   display: flex;
-  flex-direction: row;
+  flex-direction: row
 }
 
 .mainBody{
