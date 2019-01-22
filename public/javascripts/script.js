@@ -1,4 +1,7 @@
-console.log("hello");
+var map, places, infoWindow;
+var markers = [];
+var autocomplete;
+var countryRestrict = {'country': 'all'};
 
 // Initialize and add the map
 function initMap() {
@@ -12,4 +15,9 @@ var map = new google.maps.Map(
   document.getElementById('map'), {zoom : 12, center: uluru});
 // The marker, positioned at Uluru
 var marker = new google.maps.Marker({position: uluru, map: map});
-}
+
+autocomplete = new google.maps.places.Autocomplete(
+        (document.getElementById('autocomplete')), {
+              types: ['(cities)']
+            });
+};
