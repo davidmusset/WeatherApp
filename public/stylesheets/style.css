@@ -91,6 +91,12 @@ a {
   margin:2px;
 }
 
+.erreur{
+  color:red;
+  font-style: italic;
+  font-size: 12px;
+}
+
 #deleteIcon{
   width: 26px;
   border: none;
@@ -103,3 +109,9 @@ a {
 #deleteIcon:hover{
   cursor:pointer;
 }
+
+      
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }

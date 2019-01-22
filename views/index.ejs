@@ -5,6 +5,9 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="javascripts/script.js" type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgceJ_lP2riaH10EOpXxZLrU0Mk7RHzRo&callback=initMap">
+    </script>
   </head>
   <body>
     <div class="container">
@@ -30,9 +33,20 @@
           </form>
         </div>
       </div>
+      <div class="row">
+        <div class= "col-6 d-none d-lg-block">
+        </div>
+        <div class="col-6 erreur">
+          <%if(erreur=="True"){%>La ville tapée n'existe pas<%}%></cite>
+        </div>
+      </div>
       <div class="row mainBody">
         <div class="col-xs-12 col-lg-6">
-          <img src="images/map.png" class="imageLeft">
+          <!-- <img src="images/map.png" class="imageLeft"> -->
+          <div id="lon" style="display: none;"><%if(cityList[0] == undefined){%> 0 <%}else{%> <%=cityList[cityList.length-1].Lon%> <%}%></div>
+          <div id="latt" style="display: none;"><%if(cityList[0] == undefined){%> 0 <%}else{%> <%=cityList[cityList.length-1].Latt%> <%}%></div>
+          <div id="map"></div>
+
         </div>
 
         <div class="col-xs-12 col-lg-6">
@@ -47,12 +61,15 @@
                     <%=
                       cityList[i].nom
                     %>
+
                   </div>
                   <div class="col-9 col-lg-7 text-left">
-                    <img src="images/weather/<%=cityList[i].img%>" width="30px">
-                    <%=
-                      cityList[i].temps
-                    %>
+                    <% for(j=0;j<cityList[i].temps.length;j++){ %>
+                      <img src="http://openweathermap.org/img/w/<%=cityList[i].img[j]%>.png" width="30px">
+                      <%=
+                        cityList[i].temps[j];
+                      %>
+                    <%}%>
                     <p class="tempMatin">  <%= cityList[i].Tmatin%>°C </p>
                     <p class="tempSoir">  <%=cityList[i].Tsoir%>°C </p>
                   </div>
