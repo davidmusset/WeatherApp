@@ -1,13 +1,13 @@
 body {
-  padding: 50px;
+  padding: 20px;
   font-weight:500;
+  background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')
 }
 
 h1{
-  color:#fdc215;
+  color:#FFF;
   font-size: 60px;
-  text-shadow: 2px 2px 1px grey;
-  font-family: Ubuntu;
+  font-family: Raleway;
   margin-bottom: 80px;
 
 }
@@ -15,13 +15,24 @@ a {
   color: #fdc215;
 }
 
+
+.navbar{
+  width: 100%;
+}
+
+.navbar-brand{
+  font-weight: bold;
+  font-size: 40px;
+}
+
 .textRegular{
-  color: black;
-  font-size: 14px;
+  color: #FFF;
+  font-size: 25px;
   font-family: Arial;
   margin: 0;
   justify-content: center;
   align-items: center;
+  margin-right: 5px;
 }
 
 .text{
@@ -50,7 +61,11 @@ a {
 }
 .search{
   display: flex;
-  flex-direction: row
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom:10px;
 }
 
 .mainBody{
@@ -64,6 +79,8 @@ a {
 .list-group-item:hover{
   background-color: #F1F1F1;
 }
+
+
 
 .tempMatin{
   display: inline;
@@ -94,24 +111,27 @@ a {
 .erreur{
   color:red;
   font-style: italic;
-  font-size: 12px;
+  font-size: 14px;
+  margin-bottom: 60px;
 }
 
 #deleteIcon{
   width: 26px;
   border: none;
-  color: #FFF;
+  color: black;
   background-color: transparent;
-  background-image: url("../images/deleteIcon.png");
-  background-size: cover;
 }
 
 #deleteIcon:hover{
   cursor:pointer;
 }
 
-      
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+
+#map {
+      height: 400px;  /* The height is 400 pixels */
+      width: 100%;  /* The width is the width of the web page */
+ }
+
+ #Erreurmsg{
+   font-size: 15px;
+ }
