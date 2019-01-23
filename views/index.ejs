@@ -8,9 +8,6 @@
     <link rel="stylesheet" type="text/css" href="assets/vendors/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
-
-    <script src="javascripts/script.js" type="text/javascript"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgceJ_lP2riaH10EOpXxZLrU0Mk7RHzRo&callback=initMap&libraries=places"> </script>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
@@ -21,7 +18,7 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="#">
             WeatherApp
           </a>
 
@@ -66,15 +63,13 @@
 
       <div class="row">
         <div class="col-12 text-center">
-          <form method="POST" action="/add-city">
           <div class="search">
-
             <div class="text"><p class="textRegular"> Ville:</p></div>
-
+              <input type="hidden" name="longitude" id="longitude" value="<%if(cityList[0]==undefined){%>0<%}else{%><%=cityList[0].Lon%><%}%>">
+              <input type="hidden" name="lattitude" id="lattitude" value="<%if(cityList[0]==undefined){%>0<%}else{%><%=cityList[0].Latt%><%}%>">
               <input type="text" class="inputVille" placeholder="Paris,Lyon..." name="newCity" id="autocomplete">
-              <input type="submit" class="btnSubmit" value="Ajouter">
+              <input type="submit" class="btnSubmit" id="btnSubmit" value="Ajouter">
           </div>
-          </form>
         </div>
       </div>
       <div class="row">
@@ -103,8 +98,6 @@
       <div class="row mainBody">
         <div class="col-xs-12 col-lg-6">
           <!-- <img src="images/map.png" class="imageLeft"> -->
-          <div id="lon" style="display: none;"><%if(cityList[0] == undefined){%> 0 <%}else{%> <%=cityList[0].Lon%> <%}%></div>
-          <div id="latt" style="display: none;"><%if(cityList[0] == undefined){%> 0 <%}else{%> <%=cityList[0].Latt%> <%}%></div>
           <div id="map"></div>
 
         </div>
@@ -136,7 +129,7 @@
                   <div class="col-1 text-right">
                     <form method="POST" action="/delete-city">
                       <input type="hidden" value="<%=i%>" name="deleteCity">
-                      <input type="hidden" value="<%=cityList[i].id%>" name="idDelete"> 
+                      <input type="hidden" value="<%=cityList[i].id%>" name="idDelete">
                       <input type="submit" src="images/deleteIcon.png" id="deleteIcon" value="x"></form>
                   </div>
                 </div>
@@ -158,6 +151,7 @@
     <script src="assets/vendors/jquery.migrate.min.js"></script>
     <script src="assets/vendors/popper.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="javascripts/script.js" type="text/javascript"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgceJ_lP2riaH10EOpXxZLrU0Mk7RHzRo&callback=initMap&libraries=places"> </script>
   </body>
 </html>

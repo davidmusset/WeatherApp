@@ -84,14 +84,17 @@ router.get('/', function(req, res, next) {
 router.post('/add-city', function(req, res, next) {
 
   var newCity = capitalizeFirstLetter(req.body.newCity);
+  var newLon = capitalizeFirstLetter(req.body.longitude);
+  var newLatt = capitalizeFirstLetter(req.body.lattitude);
   var weatherMain = [];
   var weatherIcon = [];
   var Tmatin ="";
   var Tsoir = "";
 
   //Récupération de l'API
-  request("http://api.openweathermap.org/data/2.5/weather?q="+newCity+"&appid=c1a7f6aeef5997d4d041568764497ffe", function(error, response, body) {
+  request("http://api.openweathermap.org/data/2.5/weather?lat="+newLatt+"&lon="+newLon+"&appid=c1a7f6aeef5997d4d041568764497ffe", function(error, response, body) {
   var cityDetail = JSON.parse(body);
+
   if(cityDetail.cod == "404"){
     res.render('index', { cityList: req.session.cityList, erreur: "True" });
   }
@@ -140,18 +143,32 @@ router.post('/add-city', function(req, res, next) {
 
 router.post('/delete-city', function(req, res, next) {
 
-  //Suppression dans Mangoose
-  var idDelete = req.body.idDelete
-
-  UserModel.deleteOne(
-    { _id: idDelete},
-    function(error) {
-    }
-  );
-
   //Suppression dans le front
   var deleteCity = req.body.deleteCity;
   req.session.cityList.splice(deleteCity,1)
+
+  var idDelete
+
+  //Suppression dans Mangoose
+  idList = [];
+
+  UserModel.find(
+    function (err, users) {
+      for(i=0; i<users.length;i++){
+        idList.unshift(users[i].id);
+        idDelete = idList[deleteCity]
+      }
+
+      UserModel.deleteOne(
+        { _id: idDelete},
+        function(error) {
+        }
+      );
+
+    }
+  )
+
+
 
   //Res Render
   res.render('index', { cityList: req.session.cityList,  erreur: "False" });

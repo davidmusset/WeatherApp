@@ -1,7 +1,8 @@
 body {
   padding: 20px;
   font-weight:500;
-  background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png')
+  background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png');
+  background-size:cover;
 }
 
 h1{
