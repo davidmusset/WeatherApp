@@ -79,6 +79,7 @@ router.get('/', function(req, res, next) {
 });
 
 
+// Ajouter une Ville
 
 router.post('/add-city', function(req, res, next) {
 
@@ -141,7 +142,6 @@ router.post('/delete-city', function(req, res, next) {
 
   //Suppression dans Mangoose
   var idDelete = req.body.idDelete
-  console.log("Hello"+idDelete);
 
   UserModel.deleteOne(
     { _id: idDelete},

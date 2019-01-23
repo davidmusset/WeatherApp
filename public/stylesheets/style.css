@@ -116,6 +116,7 @@ a {
 }
 
 #deleteIcon{
+  font-size: 12px;
   width: 26px;
   border: none;
   color: black;
