@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var session = require("express-session");
-var mongoose = require('mongoose');
+var mongoose = require('../models/bddconnect');
+var UserModel = require('../models/cities');
+var Users = require('../models/users');
 
 //fonction qui majuscule la première lettre
 function capitalizeFirstLetter(string) {
@@ -10,70 +12,52 @@ function capitalizeFirstLetter(string) {
 }
 
 
-// Initialisation de mongoose
-var options = {
-  connectTimeoutMS: 5000,
-  useNewUrlParser: true
-}
-
-//connection à la base de données mongoose
-mongoose.connect('mongodb://davidmusset:Salut9367@ds163984.mlab.com:63984/weatherapp',
-    options,
-    function(err) {
-     console.log(err);
-    }
-);
-
-//Création du schéma de la bdd
-var userSchema = mongoose.Schema({
-    Nom: String,
-    Temps1: String,
-    Temps2: String,
-    Temps3: String,
-    Icon1: String,
-    Icon2: String,
-    Icon3: String,
-    Tmatin: Number,
-    Tsoir: Number,
-    Latt: Number,
-    Lon: Number
-});
-
-//Création du type d'objet qui permet d'insérer
-var UserModel = mongoose.model('CityList', userSchema);
-
-
 
 // ------ROUTES------
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  req.session.cityList = [];
-
-  UserModel.find(
-    function (err, users) {
-      for(i=0; i<users.length;i++){
-          var tempsbdd = [];
-          var imgbdd =[];
-          tempsbdd.push(users[i].Temps1);
-          imgbdd.push(users[i].Icon1);
-          if (!(users[i].Temps2 == undefined)){tempsbdd.push(users[i].Temps2); imgbdd.push(users[i].Icon2);}
-          if (!(users[i].Temps3 == undefined)){tempsbdd.push(users[i].Temps3); imgbdd.push(users[i].Icon3);}
-
-
-        req.session.cityList.unshift({
-          id: users[i].id,
-          nom: users[i].Nom,
-          temps: tempsbdd,
-          img: imgbdd,
-          Tmatin:users[i].Tmatin,
-          Tsoir:users[i].Tsoir,
-          Latt:users[i].Latt,
-          Lon:users[i].Lon
-        })
+  if (req.session.userId == undefined){
+        req.session.userId = req.query.id;
       }
-      res.render('index', { cityList: req.session.cityList,  erreur: "False" });
-    }
+
+  Users.findById(req.session.userId,function (err, currentlog) {
+
+    if(currentlog == undefined){
+        res.redirect('/users/signin');
+      }
+    else{
+        nom = currentlog.Nom;
+        req.session.cityList = [];
+
+        UserModel.find(
+          function (err, users) {
+            for(i=0; i<users.length;i++){
+                var tempsbdd = [];
+                var imgbdd =[];
+                tempsbdd.push(users[i].Temps1);
+                imgbdd.push(users[i].Icon1);
+                if (!(users[i].Temps2 == undefined)){tempsbdd.push(users[i].Temps2); imgbdd.push(users[i].Icon2);}
+                if (!(users[i].Temps3 == undefined)){tempsbdd.push(users[i].Temps3); imgbdd.push(users[i].Icon3);}
+
+
+              req.session.cityList.unshift({
+                id: users[i].id,
+                nom: users[i].Nom,
+                temps: tempsbdd,
+                img: imgbdd,
+                Tmatin:users[i].Tmatin,
+                Tsoir:users[i].Tsoir,
+                Latt:users[i].Latt,
+                Lon:users[i].Lon
+              })
+            }
+            res.render('index', { cityList: req.session.cityList,  erreur: "False", currentnom: nom });
+          }
+        )
+      }
+      }
   )
 
 });
@@ -141,6 +125,10 @@ router.post('/add-city', function(req, res, next) {
 
 });
 
+
+
+//Supprimer une vile
+
 router.post('/delete-city', function(req, res, next) {
 
   //Suppression dans le front
@@ -169,9 +157,15 @@ router.post('/delete-city', function(req, res, next) {
   )
 
 
-
   //Res Render
   res.render('index', { cityList: req.session.cityList,  erreur: "False" });
 });
+
+
+
+
+
+
+
 
 module.exports = router;

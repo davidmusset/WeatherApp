@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SignIN</title>
+    <link rel='stylesheet' href='../stylesheets/styleSign.css' />
+  </head>
+  <body>
+SIGN IN
+    <form method ="POST" action="/users/signin">
+       Email : <input type="text" name="mail">  Password : <input type="password" name="password">
+       <input type="submit" value="Login">
+     </form>
+    <div class="erreur"> <%= erreurmess %> </div>
+     not a client ? <a Href="signup">Sign up</a>
+  </body>
+</html>
