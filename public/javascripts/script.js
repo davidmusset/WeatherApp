@@ -9,6 +9,25 @@ document.getElementById('btnSubmit').addEventListener('click',function(){
   PostNew();
 })
 
+var list = $('.list-group-item');
+
+list.each(
+  function() {
+    $(this).click(
+      function(){
+        list.each(
+          function(){
+            $(this).removeClass('actif')
+          });
+        $(this).addClass('actif')
+        document.getElementById('longitude').value =  parseFloat($(this).data("lon"));
+        document.getElementById('lattitude').value =  parseFloat($(this).data("latt"));
+        initMap();
+      }
+    )
+  }
+)
+
 
 // Initialize and add the map
 function initMap() {

@@ -1,8 +1,8 @@
 body {
-  padding: 20px;
   font-weight:500;
   background-image: url('https://effiasoft.com/wp-content/uploads/app-background.png');
   background-size:cover;
+  height: 100vh;
 }
 
 h1{
@@ -16,9 +16,19 @@ a {
   color: #fdc215;
 }
 
+a#navbarDropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .navbar{
   width: 100%;
+}
+
+.navbar-brand{
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .navbar-brand{
@@ -77,8 +87,17 @@ a {
   width: 100%;
 }
 
+.list-group-item{
+  background-color: rgb(25,210,253,0);
+}
+
 .list-group-item:hover{
   background-color: #F1F1F1;
+}
+
+.actif{
+  background-color:#FFF;
+  border: none;
 }
 
 

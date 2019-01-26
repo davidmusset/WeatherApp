@@ -19,7 +19,7 @@ function capitalizeFirstLetter(string) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session.userId == undefined){
-        req.session.userId = req.query.id;
+        req.session.userId = "";
       }
 
   Users.findById(req.session.userId,function (err, currentlog) {
@@ -67,61 +67,76 @@ router.get('/', function(req, res, next) {
 
 router.post('/add-city', function(req, res, next) {
 
-  var newCity = capitalizeFirstLetter(req.body.newCity);
-  var newLon = capitalizeFirstLetter(req.body.longitude);
-  var newLatt = capitalizeFirstLetter(req.body.lattitude);
-  var weatherMain = [];
-  var weatherIcon = [];
-  var Tmatin ="";
-  var Tsoir = "";
+  if (req.session.userId == undefined){
+        req.session.userId = "";
+      }
 
-  //Récupération de l'API
-  request("http://api.openweathermap.org/data/2.5/weather?lat="+newLatt+"&lon="+newLon+"&appid=c1a7f6aeef5997d4d041568764497ffe", function(error, response, body) {
-  var cityDetail = JSON.parse(body);
+  Users.findById(req.session.userId,function (err, currentlog) {
 
-  if(cityDetail.cod == "404"){
-    res.render('index', { cityList: req.session.cityList, erreur: "True" });
-  }
-  else{
-          for(i=0; i<2; i++){
-          if(!(cityDetail.weather[i] == undefined)){
-            weatherMain.push(cityDetail.weather[i].main);
-            weatherIcon.push(cityDetail.weather[i].icon);
-          }
+    if(currentlog == undefined){
+        res.redirect('/users/signin');
+      }
+    else{
+        var nom = currentlog.Nom;
+
+        var newCity = capitalizeFirstLetter(req.body.newCity);
+        var newLon = capitalizeFirstLetter(req.body.longitude);
+        var newLatt = capitalizeFirstLetter(req.body.lattitude);
+        var weatherMain = [];
+        var weatherIcon = [];
+        var Tmatin ="";
+        var Tsoir = "";
+
+        //Récupération de l'API
+        request("http://api.openweathermap.org/data/2.5/weather?lat="+newLatt+"&lon="+newLon+"&appid=c1a7f6aeef5997d4d041568764497ffe", function(error, response, body) {
+        var cityDetail = JSON.parse(body);
+
+        if(cityDetail.cod == "404"){
+          res.render('index', { cityList: req.session.cityList, erreur: "True" });
+        }
+        else{
+                for(i=0; i<2; i++){
+                if(!(cityDetail.weather[i] == undefined)){
+                  weatherMain.push(cityDetail.weather[i].main);
+                  weatherIcon.push(cityDetail.weather[i].icon);
+                }
+
+              }
+
+              Tmatin = parseInt(cityDetail.main.temp_min)-273,15;
+              Tsoir = parseInt(cityDetail.main.temp_max)-273,15;
+              Latt = cityDetail.coord.lat;
+              Lon = cityDetail.coord.lon;
+
+              // Insertion d'une nouvelle ville
+              var newUser = new UserModel ({
+               Nom: newCity,
+               Temps1: weatherMain[0],
+               Temps2: weatherMain[1],
+               Temps3: weatherMain[2],
+               Icon1: weatherIcon[0],
+               Icon2: weatherIcon[1],
+               Icon3: weatherIcon[2],
+               Tmatin: Tmatin,
+               Tsoir: Tsoir,
+               Latt: Latt,
+               Lon: Lon
+              });
+
+            // Sauvegarde
+              newUser.save(
+                  function (error, user) {
+                   }
+              );
+
+              req.session.cityList.unshift({nom: newCity, temps:weatherMain, img: weatherIcon, Tmatin:Tmatin, Tsoir:Tsoir, Latt:Latt, Lon:Lon})
+
+              res.render('index', { cityList: req.session.cityList , erreur: "False", currentnom: nom});
+              }
+          });
 
         }
-
-        Tmatin = parseInt(cityDetail.main.temp_min)-273,15;
-        Tsoir = parseInt(cityDetail.main.temp_max)-273,15;
-        Latt = cityDetail.coord.lat;
-        Lon = cityDetail.coord.lon;
-
-        // Insertion d'une nouvelle ville
-        var newUser = new UserModel ({
-         Nom: newCity,
-         Temps1: weatherMain[0],
-         Temps2: weatherMain[1],
-         Temps3: weatherMain[2],
-         Icon1: weatherIcon[0],
-         Icon2: weatherIcon[1],
-         Icon3: weatherIcon[2],
-         Tmatin: Tmatin,
-         Tsoir: Tsoir,
-         Latt: Latt,
-         Lon: Lon
-        });
-
-      // Sauvegarde
-        newUser.save(
-            function (error, user) {
-             }
-        );
-
-        req.session.cityList.unshift({nom: newCity, temps:weatherMain, img: weatherIcon, Tmatin:Tmatin, Tsoir:Tsoir, Latt:Latt, Lon:Lon})
-
-        res.render('index', { cityList: req.session.cityList , erreur: "False"});
-        }
-    });
+      });
 
 });
 
@@ -131,34 +146,56 @@ router.post('/add-city', function(req, res, next) {
 
 router.post('/delete-city', function(req, res, next) {
 
-  //Suppression dans le front
-  var deleteCity = req.body.deleteCity;
-  req.session.cityList.splice(deleteCity,1)
-
-  var idDelete
-
-  //Suppression dans Mangoose
-  idList = [];
-
-  UserModel.find(
-    function (err, users) {
-      for(i=0; i<users.length;i++){
-        idList.unshift(users[i].id);
-        idDelete = idList[deleteCity]
+  if (req.session.userId == undefined){
+        req.session.userId = "";
       }
 
-      UserModel.deleteOne(
-        { _id: idDelete},
-        function(error) {
+  Users.findById(req.session.userId,function (err, currentlog) {
+
+    if(currentlog == undefined){
+        res.redirect('/users/signin');
+      }
+    else{
+        var nom = currentlog.Nom;
+
+
+          //Suppression dans le front
+          var deleteCity = req.body.deleteCity;
+          req.session.cityList.splice(deleteCity,1)
+
+          var idDelete
+
+          //Suppression dans Mangoose
+          idList = [];
+
+          UserModel.find(
+            function (err, users) {
+              for(i=0; i<users.length;i++){
+                idList.unshift(users[i].id);
+                idDelete = idList[deleteCity]
+              }
+
+              UserModel.deleteOne(
+                { _id: idDelete},
+                function(error) {
+                }
+              );
+
+            }
+          )
+
+          //Res Render
+          res.render('index', { cityList: req.session.cityList,  erreur: "False", currentnom: nom });
+
         }
-      );
+      });
+});
 
-    }
-  )
+/* GET About. */
+router.get('/apropos', function(req, res, next) {
 
+  res.render('apropos', { currentnom: nom });
 
-  //Res Render
-  res.render('index', { cityList: req.session.cityList,  erreur: "False" });
 });
 
 

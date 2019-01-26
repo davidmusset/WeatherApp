@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>Weather App</title>
-
+    <!-- To add in order to scale the view for mobiles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="assets/vendors/bootstrap/css/bootstrap.css">
@@ -30,10 +31,10 @@
 
                 <ul class="navbar-nav ml-auto mt-1 mt-lg-0">
                   <li class="nav-item active mx-2">
-                    <a class="nav-link" href="#">Météo <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Météo <span class="sr-only">(current)</span></a>
                   </li>
                   <li class="nav-item mx-2">
-                    <a class="nav-link" href="#">A propos</a>
+                    <a class="nav-link" href="/apropos">A propos</a>
                   </li>
                   <li class="nav-item mx-2">
                     <a class="nav-link" href="#">Contacts</a>
@@ -107,7 +108,7 @@
               <%
               for(i=0; i<cityList.length;i++){
                 %>
-            <li class="list-group-item">
+            <li class="list-group-item <% if(i==0){%><%='actif'%><%}%>" data-lon="<%=cityList[i].Lon%>" data-latt="<%=cityList[i].Latt%>">
               <div class="container">
                 <div class="row">
                   <div class="col-2 col-lg-4 text-left">

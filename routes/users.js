@@ -84,7 +84,7 @@ router.post('/signup',
 
           }
           else{
-            res.render('signupform', {erreurmess : "Le mail existe déjà"});;
+            res.render('signupform', {erreurmess : "L'adresse e-mail est déjà utilisé"});;
           }
         }
     )

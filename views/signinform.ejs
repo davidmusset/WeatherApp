@@ -2,16 +2,44 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>SignIN</title>
+    <title>WeatherApp</title>
     <link rel='stylesheet' href='../stylesheets/styleSign.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
   <body>
-SIGN IN
-    <form method ="POST" action="/users/signin">
-       Email : <input type="text" name="mail">  Password : <input type="password" name="password">
-       <input type="submit" value="Login">
-     </form>
-    <div class="erreur"> <%= erreurmess %> </div>
-     not a client ? <a Href="signup">Sign up</a>
+
+    <div  id="background">
+        <div class="logo">
+            <a href="/">WeatherApp</a>
+        </div>
+        <div class="containBox">
+          <div class="titreBox">
+            <p class='h1'>S'identifier</p>
+          </div>
+          <div class="form">
+            <form method ="POST" action="/users/signin">
+               <div class="input">
+                 <input class="inputBtn" type="text" name="mail" placeholder="Adresse email">
+               </div>
+               <div class="input">
+                 <input class= "inputBtn" type="password" name="password" placeholder="Mot de Passe">
+               </div>
+               <div class="erreur"> <%= erreurmess %> </div>
+               <div class="input">
+                 <input class= "SubmitBtn" type="submit" value="S'identifier" id="submitBtn">
+               </div>
+               <div id="remember">
+                 <input type="checkbox"> Se souvenir de moi
+               </div>
+             </form>
+           </div>
+            <div class="footer">
+              <p class="h3"> Première visite ? <a Href="signup">Inscrivez-vous</a> </p>
+            </div>
+         </div>
+
+
+    </div>
   </body>
 </html>

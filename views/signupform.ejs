@@ -2,23 +2,44 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>SignUP</title>
+    <title>WeatherApp</title>
     <link rel='stylesheet' href='../stylesheets/styleSign.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
   <body>
-SIGN UP
 
-    <div class="form">
-       Nom d'utilisateur : <input type="text" name="user" id="name">
-       Mail : <input type="text" name="mail" id="mail">
-       Password : <input type="password" name="password" id="password">
-       Repeat Password : <input type="password" name="password2" id="password2">
-       <input type="submit" value="Signup" id="btnSubmitSign">
 
-       <div class ="erreur" id="erreur"> <%= erreurmess %>  </div>
-     </div>
+    <div  id="background">
+        <div class="logo">
+          <a href="/">WeatherApp</a>
+        </div>
+        <div class="containBox">
+          <div class="titreBox">
+            <p class='h1'>S'identifier</p>
+          </div>
+          <div class="form">
+              <div class="input">
+                <input class="inputBtn" type="text" name="user" id="name" placeholder="Nom d'utilisateur">
+              </div>
+               <div class="input">
+                 <input class="inputBtn" type="text" name="mail" id="mail" placeholder="Adresse email">
+               </div>
+               <div class="input">
+                 <input class= "inputBtn" type="password" name="password" id="password" placeholder="Mot de Passe">
+               </div>
+               <div class="input">
+                 <input class= "inputBtn" type="password" name="password2" id="password2" placeholder="Mot de Passe">
+               </div>
+               <div class="input">
+                 <input class= "SubmitBtn" type="submit" value="S'identifier" id="btnSubmitSign">
+               </div>
+           </div>
+            <div class="erreur" id="erreur"> <%= erreurmess %> </div>
+         </div>
 
-     <script src="../javascripts/scriptsignup.js" type="text/javascript"></script>
 
+    </div>
+    <script src="../javascripts/scriptsignup.js" type="text/javascript"></script>
   </body>
 </html>
